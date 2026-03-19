@@ -142,13 +142,48 @@ def apply_theme() -> None:
             --button-primary-border: #60A5FA;
             --button-primary-text: #103b52;
         }
-        html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
+        html, body, #root, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
             background: var(--app-bg);
             color: var(--text-color);
+        }
+        html, body, #root, .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"], [data-testid="stMainBlockContainer"] {
+            color-scheme: light !important;
         }
         .stApp {
             background: var(--app-bg);
             color: var(--text-color);
+        }
+        [data-testid="stAppViewContainer"] > .main,
+        [data-testid="stMain"],
+        [data-testid="stMainBlockContainer"],
+        section.main,
+        section[data-testid="stSidebar"],
+        [data-testid="stSidebarContent"],
+        [data-testid="stSidebarUserContent"],
+        [data-testid="stDialog"],
+        [data-testid="stModal"],
+        [data-baseweb="popover"],
+        [data-baseweb="menu"],
+        .stPopover,
+        .stAlert,
+        .stExpander,
+        .stTabs,
+        .stForm {
+            background: var(--app-bg) !important;
+            color: var(--text-color) !important;
+        }
+        section[data-testid="stSidebar"],
+        [data-testid="stSidebarContent"],
+        [data-testid="stDialog"],
+        [data-testid="stModal"],
+        [data-baseweb="popover"],
+        [data-baseweb="menu"] {
+            background: var(--surface-bg) !important;
+        }
+        [data-testid="stToolbar"],
+        [data-testid="stDecoration"],
+        header[data-testid="stHeader"] {
+            background: var(--app-bg) !important;
         }
         .block-container {
             padding-top: 1.25rem;
@@ -213,13 +248,26 @@ def apply_theme() -> None:
         }
         [data-baseweb="input"] input,
         [data-baseweb="base-input"] input,
+        [data-baseweb="input"] > div,
+        [data-baseweb="base-input"] > div,
         div[data-baseweb="select"] > div,
+        div[data-baseweb="select"] > div > div,
         textarea,
         .stDateInput input,
         .stNumberInput input,
         .stTextInput input {
             background: #ffffff !important;
             color: var(--text-color) !important;
+        }
+        [data-baseweb="select"] > div,
+        [data-baseweb="input"] > div,
+        [data-baseweb="base-input"] > div,
+        textarea,
+        .stDateInput,
+        .stNumberInput,
+        .stTextInput {
+            background: #ffffff !important;
+            border-color: var(--border-color) !important;
         }
         div[data-baseweb="select"] *,
         .stRadio label,
@@ -228,7 +276,7 @@ def apply_theme() -> None:
         .stText,
         p,
         label {
-            color: var(--text-color);
+            color: var(--text-color) !important;
         }
         .dashboard-card {
             background: var(--surface-bg);
