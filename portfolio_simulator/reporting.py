@@ -392,19 +392,55 @@ def export_pdf_report(
     font_bold = "Helvetica-Bold"
     font_italic = "Helvetica-Oblique"
     rupee_supported = False
+
+    font_candidates: list[tuple[str, Path, Path, Path]] = []
     windir = os.environ.get("WINDIR", "")
-    font_dir = (Path(windir) / "Fonts") if windir else Path("")
-    arial_regular = font_dir / "arial.ttf"
-    arial_bold = font_dir / "arialbd.ttf"
-    arial_italic = font_dir / "ariali.ttf"
-    if arial_regular.exists() and arial_bold.exists() and arial_italic.exists():
-        pdfmetrics.registerFont(TTFont("PDFArial", str(arial_regular)))
-        pdfmetrics.registerFont(TTFont("PDFArialBold", str(arial_bold)))
-        pdfmetrics.registerFont(TTFont("PDFArialItalic", str(arial_italic)))
-        font_regular = "PDFArial"
-        font_bold = "PDFArialBold"
-        font_italic = "PDFArialItalic"
-        rupee_supported = True
+    if windir:
+        font_dir = Path(windir) / "Fonts"
+        font_candidates.extend(
+            [
+                ("PDFArial", font_dir / "arial.ttf", font_dir / "arialbd.ttf", font_dir / "ariali.ttf"),
+                ("PDFSegoeUI", font_dir / "segoeui.ttf", font_dir / "segoeuib.ttf", font_dir / "segoeuii.ttf"),
+            ]
+        )
+
+    font_candidates.extend(
+        [
+            (
+                "PDFDejaVuSans",
+                Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),
+                Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"),
+                Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf"),
+            ),
+            (
+                "PDFLiberationSans",
+                Path("/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf"),
+                Path("/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf"),
+                Path("/usr/share/fonts/truetype/liberation2/LiberationSans-Italic.ttf"),
+            ),
+            (
+                "PDFNotoSans",
+                Path("/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf"),
+                Path("/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf"),
+                Path("/usr/share/fonts/truetype/noto/NotoSans-Italic.ttf"),
+            ),
+        ]
+    )
+
+    for font_name, regular_path, bold_path, italic_path in font_candidates:
+        if not (regular_path.exists() and bold_path.exists() and italic_path.exists()):
+            continue
+        try:
+            pdfmetrics.registerFont(TTFont(font_name, str(regular_path)))
+            pdfmetrics.registerFont(TTFont(f"{font_name}Bold", str(bold_path)))
+            pdfmetrics.registerFont(TTFont(f"{font_name}Italic", str(italic_path)))
+            font_regular = font_name
+            font_bold = f"{font_name}Bold"
+            font_italic = f"{font_name}Italic"
+            rupee_supported = True
+            break
+        except Exception:
+            continue
 
     doc = SimpleDocTemplate(
         str(output_path),

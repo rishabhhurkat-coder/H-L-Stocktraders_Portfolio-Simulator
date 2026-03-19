@@ -11,7 +11,7 @@ def format_currency(amount: float) -> str:
     digits = str(value)
 
     if len(digits) <= 3:
-        return f"{sign}₹{digits}"
+        return f"{sign}\u20b9{digits}"
 
     last_three = digits[-3:]
     remaining = digits[:-3]
@@ -25,7 +25,7 @@ def format_currency(amount: float) -> str:
         parts.append(remaining)
 
     grouped = ",".join(reversed(parts)) + f",{last_three}"
-    return f"{sign}₹{grouped}"
+    return f"{sign}\u20b9{grouped}"
 
 
 def format_percentage(value: float) -> str:
