@@ -72,6 +72,8 @@ OCCUPATION_OPTIONS = [
 DEVELOPER_NAME = "Rishabh Hurkat"
 DEVELOPER_PHONE = "88830488312"
 DEVELOPER_EMAIL = "hlstocktraders@gmail.com"
+BIRTH_DATE_MIN = date(1901, 1, 1)
+BIRTH_DATE_MAX = date.today()
 SIP_ONLY_MODE = "SIP Only Mode"
 SIP_CF_MODE = "SIP + Investment CF Mode"
 SIP_SWP_MODE = "SIP + SWP Mode"
@@ -545,7 +547,13 @@ def render_customer_profile_dialog() -> None:
     current = st.session_state.get("customer_profile") or {}
 
     name = st.text_input("Customer Name *", value=str(current.get("name", "")))
-    birth_date = st.date_input("Birth Date", value=current.get("birth_date", date.today()), format="DD-MM-YYYY")
+    birth_date = st.date_input(
+        "Birth Date",
+        value=current.get("birth_date", BIRTH_DATE_MAX),
+        min_value=BIRTH_DATE_MIN,
+        max_value=BIRTH_DATE_MAX,
+        format="DD-MM-YYYY",
+    )
     selected_occupation = str(current.get("occupation", OCCUPATION_OPTIONS[0]))
     if selected_occupation not in OCCUPATION_OPTIONS:
         selected_occupation = OCCUPATION_OPTIONS[0]
@@ -590,7 +598,9 @@ def render_pdf_export_dialog(scenario: Scenario, analysis_results: dict[str, Sim
     name = st.text_input("Customer Name *", value=str(current.get("name", "")), key="pdf_customer_name")
     birth_date = st.date_input(
         "Birth Date",
-        value=current.get("birth_date", date.today()),
+        value=current.get("birth_date", BIRTH_DATE_MAX),
+        min_value=BIRTH_DATE_MIN,
+        max_value=BIRTH_DATE_MAX,
         format="DD-MM-YYYY",
         key="pdf_customer_birth_date",
     )
@@ -659,7 +669,9 @@ def render_excel_export_dialog(scenario: Scenario, analysis_results: dict[str, S
     name = st.text_input("Customer Name *", value=str(current.get("name", "")), key="excel_customer_name")
     birth_date = st.date_input(
         "Birth Date",
-        value=current.get("birth_date", date.today()),
+        value=current.get("birth_date", BIRTH_DATE_MAX),
+        min_value=BIRTH_DATE_MIN,
+        max_value=BIRTH_DATE_MAX,
         format="DD-MM-YYYY",
         key="excel_customer_birth_date",
     )
