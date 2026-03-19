@@ -129,9 +129,26 @@ def apply_theme() -> None:
     st.markdown(
         """
         <style>
+        :root {
+            color-scheme: light;
+            --app-bg: #ffffff;
+            --surface-bg: #f6f9fc;
+            --border-color: #dbe5ee;
+            --heading-color: #103b52;
+            --text-color: #16202a;
+            --muted-text: #4c5d6b;
+            --button-primary: #93C5FD;
+            --button-primary-hover: #60A5FA;
+            --button-primary-border: #60A5FA;
+            --button-primary-text: #103b52;
+        }
+        html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
+            background: var(--app-bg);
+            color: var(--text-color);
+        }
         .stApp {
-            background: #ffffff;
-            color: #16202a;
+            background: var(--app-bg);
+            color: var(--text-color);
         }
         .block-container {
             padding-top: 1.25rem;
@@ -139,14 +156,83 @@ def apply_theme() -> None:
             max-width: 1400px;
         }
         h1, h2, h3 {
-            color: #103b52;
+            color: var(--heading-color);
         }
         [data-testid="stMetricValue"] {
             color: #107c41;
         }
+        [data-testid="stToolbar"] {
+            color-scheme: light;
+        }
+        .stButton > button,
+        .stDownloadButton > button {
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+        }
+        .stButton > button[kind="primary"],
+        .stDownloadButton > button[kind="primary"],
+        [data-testid="stBaseButton-primary"] {
+            background: var(--button-primary) !important;
+            color: var(--button-primary-text) !important;
+            border: 1px solid var(--button-primary-border) !important;
+        }
+        .stButton > button[kind="primary"]:hover,
+        .stDownloadButton > button[kind="primary"]:hover,
+        [data-testid="stBaseButton-primary"]:hover {
+            background: var(--button-primary-hover) !important;
+            border-color: var(--button-primary-border) !important;
+            color: var(--button-primary-text) !important;
+        }
+        .stButton > button[kind="secondary"],
+        .stDownloadButton > button[kind="secondary"],
+        [data-testid="stBaseButton-secondary"] {
+            background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 100%) !important;
+            color: var(--button-primary) !important;
+            border: 1px solid rgba(37, 99, 235, 0.24) !important;
+        }
+        .stButton > button[kind="secondary"]:hover,
+        .stDownloadButton > button[kind="secondary"]:hover,
+        [data-testid="stBaseButton-secondary"]:hover {
+            background: #eff6ff !important;
+            color: var(--button-primary-hover) !important;
+            border-color: rgba(59, 130, 246, 0.32) !important;
+        }
+        .stButton > button:focus,
+        .stDownloadButton > button:focus,
+        [data-testid="stBaseButton-primary"]:focus,
+        [data-testid="stBaseButton-secondary"]:focus {
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.18) !important;
+        }
+        [data-testid="stDataFrame"] {
+            margin-top: 0 !important;
+        }
+        [data-testid="stDataFrame"] [role="columnheader"],
+        [data-testid="stDataFrame"] [role="gridcell"] {
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
+        }
+        [data-baseweb="input"] input,
+        [data-baseweb="base-input"] input,
+        div[data-baseweb="select"] > div,
+        textarea,
+        .stDateInput input,
+        .stNumberInput input,
+        .stTextInput input {
+            background: #ffffff !important;
+            color: var(--text-color) !important;
+        }
+        div[data-baseweb="select"] *,
+        .stRadio label,
+        .stCheckbox label,
+        .stMarkdown,
+        .stText,
+        p,
+        label {
+            color: var(--text-color);
+        }
         .dashboard-card {
-            background: #f6f9fc;
-            border: 1px solid #dbe5ee;
+            background: var(--surface-bg);
+            border: 1px solid var(--border-color);
             border-radius: 14px;
             padding: 18px 20px;
             margin-bottom: 14px;
@@ -174,11 +260,11 @@ def apply_theme() -> None:
             font-size: 0.97rem;
         }
         .summary-label {
-            color: #4c5d6b;
+            color: var(--muted-text);
             font-weight: 600;
         }
         .summary-value {
-            color: #16202a;
+            color: var(--text-color);
             font-weight: 600;
         }
         .small-note {
@@ -191,14 +277,14 @@ def apply_theme() -> None:
             opacity: 1 !important;
         }
         .brand-logo-card {
-            border: 1px solid #dbe5ee;
+            border: 1px solid var(--border-color);
             border-radius: 14px;
             padding: 10px;
-            background: #f6f9fc;
+            background: var(--surface-bg);
         }
         .profile-card {
-            background: #f6f9fc;
-            border: 1px solid #dbe5ee;
+            background: var(--surface-bg);
+            border: 1px solid var(--border-color);
             border-radius: 14px;
             padding: 14px 16px;
             min-height: 110px;
@@ -221,9 +307,9 @@ def apply_theme() -> None:
             align-items: center;
             justify-content: flex-start;
             padding: 10px 16px;
-            border: 1px solid #dbe5ee;
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            background: #ffffff;
+            background: var(--app-bg);
             margin-bottom: 0.9rem;
             width: auto;
             max-width: 100%;
@@ -275,13 +361,13 @@ def apply_theme() -> None:
             margin-bottom: 0.35rem;
         }
         .result-item {
-            background: #ffffff;
-            border: 1px solid #dbe5ee;
+            background: var(--app-bg);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 12px 14px;
         }
         .result-label {
-            color: #4c5d6b;
+            color: var(--muted-text);
             font-weight: 500;
             font-size: 0.95rem;
             margin-bottom: 6px;
@@ -448,9 +534,10 @@ def render_customer_profile_dialog() -> None:
         st.rerun()
 
 
-@st.dialog("Update Customer Details For PDF", width="large")
+@st.dialog("Client Details For PDF", width="large")
 def render_pdf_export_dialog(scenario: Scenario, analysis_results: dict[str, SimulationResult]) -> None:
     current = st.session_state.get("customer_profile") or {}
+    st.caption("Review client details and confirm PDF export.")
 
     name = st.text_input("Customer Name *", value=str(current.get("name", "")), key="pdf_customer_name")
     birth_date = st.date_input(
@@ -474,7 +561,7 @@ def render_pdf_export_dialog(scenario: Scenario, analysis_results: dict[str, Sim
 
     export_col, cancel_col = st.columns(2)
     with export_col:
-        export_clicked = st.button("Update & Export PDF", type="primary", use_container_width=True, key="pdf_export_confirm")
+        export_clicked = st.button("Confirm & Prepare PDF", type="primary", use_container_width=True, key="pdf_export_confirm")
     with cancel_col:
         cancel_clicked = st.button("Cancel", use_container_width=True, key="pdf_export_cancel")
 
@@ -516,9 +603,10 @@ def render_pdf_export_dialog(scenario: Scenario, analysis_results: dict[str, Sim
         st.rerun()
 
 
-@st.dialog("Update Customer Details For Excel", width="large")
+@st.dialog("Client Details For Excel", width="large")
 def render_excel_export_dialog(scenario: Scenario, analysis_results: dict[str, SimulationResult]) -> None:
     current = st.session_state.get("customer_profile") or {}
+    st.caption("Review client details and confirm Excel export.")
 
     name = st.text_input("Customer Name *", value=str(current.get("name", "")), key="excel_customer_name")
     birth_date = st.date_input(
@@ -542,7 +630,7 @@ def render_excel_export_dialog(scenario: Scenario, analysis_results: dict[str, S
 
     export_col, cancel_col = st.columns(2)
     with export_col:
-        export_clicked = st.button("Update & Export Excel", type="primary", use_container_width=True, key="excel_export_confirm")
+        export_clicked = st.button("Confirm & Prepare Excel", type="primary", use_container_width=True, key="excel_export_confirm")
     with cancel_col:
         cancel_clicked = st.button("Cancel", use_container_width=True, key="excel_export_cancel")
 
@@ -650,45 +738,6 @@ def render_top_brand_bar() -> None:
         """,
         unsafe_allow_html=True,
     )
-
-
-def render_customer_profile_box() -> None:
-    profile = st.session_state.get("customer_profile")
-    rows: list[str] = []
-    if profile:
-        rows.append(f"Name: {profile.get('name', '-')}")
-        if profile.get("birth_date"):
-            rows.append(f"Birth Date: {profile.get('birth_date').strftime('%d-%m-%Y')}")
-        if profile.get("occupation"):
-            rows.append(f"Occupation: {profile.get('occupation')}")
-        if profile.get("address"):
-            rows.append(f"Address: {profile.get('address')}")
-        if profile.get("city"):
-            rows.append(f"Address (City): {profile.get('city')}")
-        if profile.get("contact_details"):
-            rows.append(f"Contact Details: {profile.get('contact_details')}")
-    else:
-        rows = [
-            "Name: -",
-            "Address (City): -",
-        ]
-    profile_html = "<br>".join(rows)
-
-    box_col, button_col = st.columns([0.82, 0.18], gap="small")
-    with box_col:
-        st.markdown(
-            f"""
-            <div class="profile-card">
-                <div class="profile-title">Customer Profile</div>
-                <div class="profile-row">{profile_html}</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-    with button_col:
-        st.markdown("<div style='height: 38px;'></div>", unsafe_allow_html=True)
-        if st.button("Customer Profile", use_container_width=True):
-            render_customer_profile_dialog()
 
 
 def normalize_cash_flows_df(df: pd.DataFrame) -> pd.DataFrame:
@@ -1334,7 +1383,6 @@ def comparison_metrics_card(analysis_results: dict[str, SimulationResult]) -> No
         return styles
 
     styled_comparison = comparison_df.style.apply(style_change_row, axis=1)
-    st.dataframe(styled_comparison, use_container_width=True, hide_index=True)
 
     chart_rows: list[dict[str, object]] = []
     for metric_name in ("Final Portfolio", "Amount Invested", "Total Profit"):
@@ -1355,32 +1403,53 @@ def comparison_metrics_card(analysis_results: dict[str, SimulationResult]) -> No
         color_domain = scenario_order
         color_range = ["#3a86ff", "#ff9f1c"]
 
-    st.markdown('<div class="section-title">Scenario Comparison Chart</div>', unsafe_allow_html=True)
-    st.vega_lite_chart(
-        chart_df,
-        {
-            "mark": {"type": "bar", "cornerRadiusTopLeft": 6, "cornerRadiusTopRight": 6},
-            "encoding": {
-                "x": {"field": "Metric", "type": "nominal", "axis": {"title": None, "labelAngle": 0}},
-                "xOffset": {"field": "Scenario"},
-                "y": {"field": "Value", "type": "quantitative", "axis": {"title": None}},
-                "color": {
-                    "field": "Scenario",
-                    "type": "nominal",
-                    "scale": {"domain": color_domain, "range": color_range},
-                    "legend": {"title": None},
+    table_col, chart_col = st.columns([3, 2], gap="large")
+
+    with table_col:
+        st.dataframe(
+            styled_comparison,
+            use_container_width=True,
+            hide_index=True,
+            row_height=80,
+            height=420,
+        )
+
+    with chart_col:
+        st.vega_lite_chart(
+            chart_df,
+            {
+                "mark": {
+                    "type": "bar",
+                    "size": 18,
+                    "cornerRadiusTopLeft": 6,
+                    "cornerRadiusTopRight": 6,
                 },
-                "tooltip": [
-                    {"field": "Metric", "type": "nominal"},
-                    {"field": "Scenario", "type": "nominal"},
-                    {"field": "Value", "type": "quantitative", "format": ",.2f"},
-                ],
+                "encoding": {
+                    "x": {
+                        "field": "Metric",
+                        "type": "nominal",
+                        "axis": {"title": None, "labelAngle": 0},
+                        "scale": {"paddingInner": 0.4, "paddingOuter": 0.2},
+                    },
+                    "xOffset": {"field": "Scenario"},
+                    "y": {"field": "Value", "type": "quantitative", "axis": {"title": None}},
+                    "color": {
+                        "field": "Scenario",
+                        "type": "nominal",
+                        "scale": {"domain": color_domain, "range": color_range},
+                        "legend": {"title": None, "orient": "bottom"},
+                    },
+                    "tooltip": [
+                        {"field": "Metric", "type": "nominal"},
+                        {"field": "Scenario", "type": "nominal"},
+                        {"field": "Value", "type": "quantitative", "format": ",.2f"},
+                    ],
+                },
+                "height": 420,
+                "view": {"stroke": None},
             },
-            "height": 320,
-            "view": {"stroke": None},
-        },
-        use_container_width=True,
-    )
+            use_container_width=True,
+        )
 
 
 def render_builder() -> tuple[Scenario, list[str]]:
@@ -1672,53 +1741,43 @@ def render_results(scenario: Scenario, analysis_results: dict[str, SimulationRes
     st.markdown("</div>", unsafe_allow_html=True)
 
     profile_for_export = st.session_state.get("customer_profile")
-
-    excel_filename, excel_data = export_excel_report(
-        Path.cwd(),
-        scenario,
-        analysis_results,
-        get_selected_analysis_variant(),
-        customer_profile=profile_for_export,
-        developer_name=DEVELOPER_NAME,
-        developer_phone=DEVELOPER_PHONE,
-        developer_email=DEVELOPER_EMAIL,
-    )
-
-    logo_path = next((path for path in LOGO_IMAGE_CANDIDATES if path.exists()), None)
-    pdf_filename, pdf_data = export_pdf_report_bytes(
-        scenario,
-        analysis_results,
-        get_selected_analysis_variant(),
-        customer_profile=profile_for_export,
-        logo_path=logo_path,
-        developer_name=DEVELOPER_NAME,
-        developer_phone=DEVELOPER_PHONE,
-        developer_email=DEVELOPER_EMAIL,
-    )
-
-    export_col1, export_col2, export_col3 = st.columns([1, 1, 2.2])
+    export_col1, export_col2 = st.columns(2)
     with export_col1:
-        st.download_button(
-            "Generate Excel Report",
-            data=excel_data,
-            file_name=excel_filename,
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            type="primary",
-            use_container_width=True,
-            key="download_excel_report_btn_direct",
-        )
+        if st.button("Generate Excel Report", type="primary", use_container_width=True, key="open_excel_export_dialog_btn"):
+            render_excel_export_dialog(scenario, analysis_results)
     with export_col2:
-        st.download_button(
-            "Generate PDF Report",
-            data=pdf_data,
-            file_name=pdf_filename,
-            mime="application/pdf",
-            type="primary",
-            use_container_width=True,
-            key="download_pdf_report_btn_direct",
-        )
-    with export_col3:
-        st.write("")
+        if st.button("Generate PDF Report", type="primary", use_container_width=True, key="open_pdf_export_dialog_btn"):
+            render_pdf_export_dialog(scenario, analysis_results)
+
+    download_col1, download_col2 = st.columns(2)
+    with download_col1:
+        excel_ready = bool(st.session_state.get("excel_export_data"))
+        if excel_ready:
+            st.download_button(
+                "Download Prepared Excel",
+                data=st.session_state["excel_export_data"],
+                file_name=st.session_state.get("excel_export_filename", "MutualFundPortfolioSimulator_FullReport.xlsx"),
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                type="secondary",
+                use_container_width=True,
+                key="download_excel_report_btn_prepared",
+            )
+            if st.session_state.get("excel_export_success"):
+                st.caption(str(st.session_state["excel_export_success"]))
+    with download_col2:
+        pdf_ready = bool(st.session_state.get("pdf_export_data"))
+        if pdf_ready:
+            st.download_button(
+                "Download Prepared PDF",
+                data=st.session_state["pdf_export_data"],
+                file_name=st.session_state.get("pdf_export_filename", "MutualFundPortfolioSimulator_FullReport.pdf"),
+                mime="application/pdf",
+                type="secondary",
+                use_container_width=True,
+                key="download_pdf_report_btn_prepared",
+            )
+            if st.session_state.get("pdf_export_success"):
+                st.caption(str(st.session_state["pdf_export_success"]))
 
 
 def main() -> None:

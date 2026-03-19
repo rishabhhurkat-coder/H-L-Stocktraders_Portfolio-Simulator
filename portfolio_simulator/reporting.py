@@ -851,7 +851,7 @@ def export_pdf_report(
 
     story.append(Paragraph("Mutual Fund Portfolio Simulator - Full Analysis Report", styles["Title"]))
     story.append(Spacer(1, 3))
-    story.append(Paragraph("Client & Header Details", section_style))
+    story.append(Paragraph("Client Details", section_style))
     profile = customer_profile or {}
     profile_table = [
         ["Field", "Value"],
